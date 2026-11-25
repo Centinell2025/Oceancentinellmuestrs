@@ -1,27 +1,50 @@
-# OceanCentinell Business 1.0.0
+# OceanCentinell Business
 
-Beacon of the Eagle LLC. Free B2B demonstration for enterprise conversations. Web and Android share a packaged, local demonstration interface with optional Internet AIS observations. Synthetic scenario only.
+**Android enterprise demonstration · Version 1.0.0 (1)**
 
-Available: sample fleet/asset register, fleet filtering, local incident creation and status updates, maintenance updates, pilot-scope form and checklist, executive/pilot TXT exports CSV registers for Excel, local JSON backup and validated recovery. Records stay in the browser or Android WebView. No analytics or automatic data transfer.
+Beacon of the Eagle LLC. A free sample for companies evaluating maritime operating workflows. B2B services, integrations, licensing and support are agreed separately.
 
-Not implemented: customer fleet tracking, telemetry, scanning, real AI, company accounts, MFA, RBAC, tenant isolation, encrypted application database, tamper-evident audit logs. The demonstration is not a production maritime service and must not be used for navigation, emergencies, safety-critical operations or real confidential customer records.
+## What works
 
-Source references reviewed: the owner's OceanCentinell Enterprise HTML and OceanCentinell USA register workflows. Original reference files and existing repositories are preserved. This is a separate demonstration, not the complete Enterprise implementation.
+- Maritime Operations Center with priorities calculated from the local scenario.
+- Vessel search and port filtering, equipment and IT/OT asset inventory.
+- Synthetic incident creation, ownership and status changes; maintenance follow-up.
+- Interactive geographic reference map, zoom, pan and port selection.
+- Pilot scope, acceptance checklist and executive/pilot brief exports.
+- CSV registers for Excel, JSON backup and validated restore with replacement confirmation.
+- Optional regional AIS connection through a separate server gateway. The provider key is pending; no live positions are claimed.
 
-Android namespace: `com.beaconoftheeagle.oceancentinellbusiness`. Version 1.0.0 (1), minimum API 26, target API 36; Internet permission for the fixed AIS gateway. The AAB must be signed and tested before store submission. Google Play pricing: free demonstration, as selected by the owner. B2B services are subject to a separate agreement; the app contains no checkout, purchase or subscription implementation.
+## Build and verify
 
-Support: centinellsuite@gmail.com.
+```sh
+node --test tests/*.cjs tests/*.mjs
+cd android
+./gradlew lintDebug assembleDebug assembleDebugAndroidTest bundleRelease
+```
 
-## Preview and Android build
+The Actions workflow builds Android outputs, runs lint, and tests the installed application on an emulator. Read the latest workflow result before treating the emulator check as passed. Signing credentials are kept outside this repository.
 
-Open `dist/index.html` through a static HTTP server. No build step or external runtime is required. The reference map works offline with bundled Natural Earth coastlines, zoom, pan, vessel filters and approximate port reference areas. No invented AIS measurements are used.
+| Component | Location |
+| --- | --- |
+| Packaged interface | `dist/` |
+| Android project | `android/` |
+| AIS gateway | `backend/` |
+| Data and AIS tests | `tests/` |
+| Store copy and privacy | `play-store/` |
+| Installation | [Android guide](docs/ANDROID.md) |
+| Provider activation | [AIS guide](docs/AIS.md) |
+| Test evidence | [Validation record](docs/TESTING.md) |
+| Store progress | [Google Play preparation](docs/GOOGLE_PLAY.md) |
 
-GitHub Actions builds the Android APK and unsigned release AAB on pushes to main. Signing keys are never stored in this repository. Run `node --test tests/demo.test.cjs` for data and export checks.
+Package: `com.beaconoftheeagle.oceancentinellbusiness`. Minimum API 26; target/compile API 36. Internet permission is used only for the optional fixed AIS gateway. No device location, contacts, camera, microphone, advertising ID or broad storage permissions are requested. Local records do not synchronize to a company server.
 
-For real AIS: select a provider and its permitted commercial usage, deploy a server connector with secrets outside client code, restrict the fleet and area, track message age and connection state, and then enable an authenticated client endpoint. No provider key has been configured.
+## Evaluation boundaries
 
-## AIS activation
+The sample uses three fictional vessels and six equipment records. The reference map is not live vessel tracking. Optional AIS observations are a separate public regional layer with timestamps, stale-state marking and expiration. The gateway runs; the publisher still needs to activate its AISStream account/key.
 
-Gateway deployed separately in Railway: `OceanCentinell-AIS-gateway`. Add `AISSTREAM_API_KEY` as a service variable using the provider account. Keep it out of GitHub and Android assets. Then choose Fleet Map → Start AIS connection. The sample is limited to regional traffic at 24–34° N, 85–78° W; it does not identify a customer fleet. It marks reception age above 3 minutes as stale and expires observations after 30 minutes. No persistent AIS history or uptime guarantee is provided.
+Production company accounts, MFA, RBAC, tenant isolation, encrypted server data, telemetry, threat detection, real AI, audit integrity and service guarantees are not implemented. Use synthetic records only. This application is not for navigation, emergencies or safety-critical decisions.
 
-Run `node backend/build.mjs` to generate the single Railway Function source and `node --test tests/*.cjs tests/*.mjs` to check validation, stale-data handling and exports.
+The owner's Enterprise HTML is the design basis. Original files and other OceanCentinell repositories are preserved. `dist/` is the shared app interface and a development preview, not an additional public SaaS release.
+
+Support and privacy: **centinellsuite@gmail.com**.
+© 2026 Beacon of the Eagle LLC. All rights reserved. See [third-party map notices](THIRD_PARTY_NOTICES.md).
