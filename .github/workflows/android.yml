@@ -62,8 +62,8 @@ jobs:
           profile: pixel_4
           emulator-options: -no-window -gpu swiftshader_indirect -no-snapshot -noaudio -no-boot-anim -camera-back none -skin 1080x1920
           script: |
-            adb install artifacts/apk/debug/app-debug.apk
-            adb install artifacts/apk/androidTest/debug/app-debug-androidTest.apk
+            adb install artifacts/outputs/apk/debug/app-debug.apk
+            adb install artifacts/outputs/apk/androidTest/debug/app-debug-androidTest.apk
             adb shell am instrument -w com.beaconoftheeagle.oceancentinellbusiness.test/com.beaconoftheeagle.oceancentinellbusiness.SmokeInstrumentation | tee android-smoke.txt
             grep -q 'result=PASS' android-smoke.txt
             adb pull /sdcard/Android/data/com.beaconoftheeagle.oceancentinellbusiness.test/files/screenshots android-screenshots
