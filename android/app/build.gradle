@@ -1,0 +1,38 @@
+plugins { id 'com.android.application' }
+
+def uploadProperties = new Properties()
+def uploadFile = rootProject.file('keystore.properties')
+if (uploadFile.exists()) uploadFile.withInputStream { uploadProperties.load(it) }
+
+android {
+    namespace 'com.beaconoftheeagle.oceancentinellbusiness'
+    compileSdk 36
+    defaultConfig {
+        applicationId 'com.beaconoftheeagle.oceancentinellbusiness'
+        minSdk 26
+        targetSdk 36
+        versionCode 1
+        versionName '1.0.0'
+    }
+    signingConfigs {
+        if (uploadFile.exists()) {
+            release {
+                storeFile rootProject.file(uploadProperties['storeFile'])
+                storePassword uploadProperties['storePassword']
+                keyAlias uploadProperties['keyAlias']
+                keyPassword uploadProperties['keyPassword']
+            }
+        }
+    }
+    buildTypes {
+        release {
+            minifyEnabled false
+            if (uploadFile.exists()) signingConfig signingConfigs.release
+        }
+    }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_17
+        targetCompatibility JavaVersion.VERSION_17
+    }
+    lint { abortOnError true }
+}

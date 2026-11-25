@@ -1,0 +1,39 @@
+name: OceanCentinell Android demonstration
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  build:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Check demonstration data validation
+        run: node --test tests/demo.test.cjs
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '21'
+      - name: Install API 36
+        run: '"$ANDROID_HOME/cmdline-tools/latest/bin/sdkmanager" "platforms;android-36" "build-tools;36.0.0"'
+      - uses: gradle/actions/setup-gradle@v4
+        with:
+          gradle-version: '8.13'
+      - name: Lint and build Android
+        working-directory: android
+        run: gradle --no-daemon lintDebug assembleDebug bundleRelease
+      - uses: actions/upload-artifact@v4
+        with:
+          name: OceanCentinell-Business-1.0.0-android
+          path: |
+            android/app/build/outputs/apk/debug/app-debug.apk
+            android/app/build/outputs/bundle/release/app-release.aab
+            android/app/build/reports/lint-results-debug.html
+          retention-days: 14

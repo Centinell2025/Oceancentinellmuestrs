@@ -1,0 +1,11 @@
+android/.gradle/
+android/local.properties
+android/keystore.properties
+android/app/build/
+android/build/
+*.p12
+*.jks
+*.zip
+*.tar.gz
+node_modules/
+test-results/
