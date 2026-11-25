@@ -30,14 +30,18 @@ public final class SmokeInstrumentation extends Instrumentation {
             capture("01-welcome.png");
             js("document.getElementById('enterDemo').click(); true");
             await("document.getElementById('main').innerText.includes('Maritime Operations Center')");
+            await("document.getElementById('loginContainer').hidden && !document.getElementById('appContainer').hidden && document.querySelector('main h1').getBoundingClientRect().top < innerHeight");
             capture("02-command-overview.png");
             js("location.hash='fleet'; true");
             await("!!document.getElementById('fleet-search')");
             js("document.getElementById('fleet-search').value='Harbor'; document.getElementById('fleet-search').dispatchEvent(new Event('input',{bubbles:true}));true");
             await("document.getElementById('fleet-table').innerText.includes('Harbor Sentinel') && !document.getElementById('fleet-table').innerText.includes('Atlantic Pioneer')");
+            await("document.getElementById('fleet-table').getBoundingClientRect().top < innerHeight");
             capture("03-vessel-register.png");
             js("location.hash='map'; true");
             await("document.querySelectorAll('.map-marker').length===3");
+            js("document.getElementById('operating-map').scrollIntoView({block:'center'});true");
+            await("document.getElementById('operating-map').getBoundingClientRect().top >= 0 && document.getElementById('operating-map').getBoundingClientRect().bottom <= innerHeight");
             capture("04-fleet-map.png");
             js("document.querySelector('[data-ais-action=start]').click(); true");
             await("document.getElementById('ais-service').innerText.includes('Provider key required') || document.getElementById('ais-service').innerText.includes('Receiving AIS') || document.getElementById('ais-service').innerText.includes('Waiting for AIS')");
@@ -74,7 +78,10 @@ public final class SmokeInstrumentation extends Instrumentation {
         throw new AssertionError("Condition failed: "+condition);
     }
     private void capture(String name) throws Exception {
-        waitForIdleSync(); Thread.sleep(400);
+        waitForIdleSync();
+        js("window.__oceanPaintReady=false;requestAnimationFrame(()=>requestAnimationFrame(()=>window.__oceanPaintReady=true));true");
+        await("window.__oceanPaintReady===true");
+        Thread.sleep(1200);
         Bitmap bitmap=getUiAutomation().takeScreenshot();
         if(bitmap==null)throw new AssertionError("Screenshot unavailable");
         File folder=new File(getTargetContext().getExternalFilesDir(null),"screenshots");folder.mkdirs();

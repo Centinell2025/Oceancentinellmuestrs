@@ -47,4 +47,4 @@ $('assistantStatus').onclick=()=>{location.hash='readiness'};
 document.addEventListener('click',ev=>{const a=ev.target.closest('[data-action]')?.dataset.action;if(a==='show-assets')location.hash='assets';if(a==='show-pilot')location.hash='pilot'});
 $('searchInput').addEventListener('keydown',ev=>{if(ev.key==='Enter'){const q=ev.target.value.trim();location.hash='fleet';render();$('fleet-search').value=q;drawFleet()}});
 if(sessionStorage.getItem('ocean-demo-entered')==='yes')enterDemo();
-window.addEventListener('hashchange',render);render();
+window.addEventListener('hashchange',()=>{render();window.scrollTo(0,0)});render();
