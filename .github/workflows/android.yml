@@ -72,7 +72,7 @@ jobs:
             adb install artifacts/outputs/apk/debug/app-debug.apk
             adb install artifacts/outputs/apk/androidTest/debug/app-debug-androidTest.apk
             adb shell am instrument -w com.beaconoftheeagle.oceancentinellbusiness.test/com.beaconoftheeagle.oceancentinellbusiness.SmokeInstrumentation | tee android-smoke.txt
-            adb pull /sdcard/Android/data/com.beaconoftheeagle.oceancentinellbusiness.test/files/screenshots android-screenshots
+            adb pull /sdcard/Android/data/com.beaconoftheeagle.oceancentinellbusiness/files/screenshots android-screenshots
             adb logcat -d -s chromium AndroidRuntime > android-logcat.txt
             grep -q '^PASS: packaged app loaded' android-smoke.txt
       - uses: actions/upload-artifact@v4

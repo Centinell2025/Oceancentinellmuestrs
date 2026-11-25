@@ -77,7 +77,7 @@ public final class SmokeInstrumentation extends Instrumentation {
         waitForIdleSync(); Thread.sleep(400);
         Bitmap bitmap=getUiAutomation().takeScreenshot();
         if(bitmap==null)throw new AssertionError("Screenshot unavailable");
-        File folder=new File(getContext().getExternalFilesDir(null),"screenshots");folder.mkdirs();
+        File folder=new File(getTargetContext().getExternalFilesDir(null),"screenshots");folder.mkdirs();
         try(FileOutputStream out=new FileOutputStream(new File(folder,name))){bitmap.compress(Bitmap.CompressFormat.PNG,100,out);}
         bitmap.recycle();
     }
