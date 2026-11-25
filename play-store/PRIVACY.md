@@ -8,6 +8,6 @@ The Android app does not request network, location, contacts, camera, microphone
 
 Local records and exports are not separately encrypted by this application. Do not enter confidential customer data. Clearing browser/app storage or uninstalling removes local records. Exported files remain wherever the user saved them and must be removed there. Android application backup/device-transfer exclusions are configured. Browser storage behavior depends on the browser.
 
-No app account is created, so no server account deletion is necessary. Use device/browser settings to clear the complete local workspace. JSON export is available in the Privacy & local data section. This release does not import backups.
+No app account is created, so no server account deletion is necessary. Use device/browser settings to clear the complete local workspace. JSON export is available in the Privacy & local data section. Validated demonstration JSON backups can be restored locally after the user confirms replacement of the current records.
 
 The demonstration is intended for adults evaluating maritime operations workflows and is not designed for children. For privacy or support requests, contact centinellsuite@gmail.com.
