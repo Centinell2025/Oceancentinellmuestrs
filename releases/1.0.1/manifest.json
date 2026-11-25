@@ -1,0 +1,20 @@
+{
+  "app": "OceanCentinell Business",
+  "version": "1.0.1",
+  "versionCode": 3,
+  "package": "com.beaconoftheeagle.oceancentinellbusiness",
+  "minSdk": 26,
+  "targetSdk": 36,
+  "aabFilename": "OceanCentinell-Business-1.0.1.aab",
+  "aabSha256": "190a3ab7acfef767ceb22178e27b8925988909dfc78613ac9b5f104fc2557bd6",
+  "sourceCommit": "8488da3952947cdc93e8726e0c57afd9cd2167bd",
+  "buildWorkflow": "https://github.com/Centinell2025/Oceancentinellmuestrs/actions/runs/45534237633",
+  "buildConclusion": "success",
+  "androidEmulatorApi": 35,
+  "androidSmokeConclusion": "success",
+  "priorInstalledAppValidation": "https://github.com/Centinell2025/Oceancentinellmuestrs/actions/runs/45532429137",
+  "status": "signed AAB accepted and saved in Google Play production draft; final publisher declarations pending",
+  "submittedForReview": false,
+  "published": false,
+  "aisStatus": "gateway deployed; provider key not configured; no live AIS observations verified"
+}

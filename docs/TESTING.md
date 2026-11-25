@@ -1,6 +1,6 @@
 # Final validation record
 
-Version: 1.0.0 (1). Package: com.beaconoftheeagle.oceancentinellbusiness.
+Version: 1.0.1 (3). Package: com.beaconoftheeagle.oceancentinellbusiness.
 
 ## Passed
 
@@ -9,11 +9,13 @@ Version: 1.0.0 (1). Package: com.beaconoftheeagle.oceancentinellbusiness.
 - The installed Android app passed on an API 35 emulator: entry, vessel filtering, reference map, native AIS gateway response and local maintenance persistence.
 - Phone layout was corrected after reviewing real emulator captures. The final test also checks that the content and map occupy the visible viewport.
 - Browser checks passed for incident creation, pilot draft/checklist persistence, maintenance priorities, CSV/JSON downloads and validated backup restoration.
-- The signed release bundle's packaged HTML, CSS, JavaScript and image assets match the reviewed source byte-for-byte.
+- The signed release bundle's packaged interface HTML, CSS, JavaScript and image assets match the reviewed `dist/` source byte-for-byte. Its signature was verified and Google Play accepted version code 3.
 
-Final installed-app run: https://github.com/Centinell2025/Oceancentinellmuestrs/actions/runs/45532429137
+Final build, lint and installed-app run: https://github.com/Centinell2025/Oceancentinellmuestrs/actions/runs/45534237633
 
-The store media use actual Android welcome, vessel-register and fleet-map captures from that run.
+The final run's build and Android smoke jobs both passed. The first smoke attempt stopped during GitHub action download, before testing; the rerun downloaded successfully and passed on the API 35 emulator.
+
+The store media use actual Android welcome, vessel-register and fleet-map captures from the earlier successful viewport-validation run: https://github.com/Centinell2025/Oceancentinellmuestrs/actions/runs/45532429137. Those captures display the previous version label; the demonstration workflows are unchanged in 1.0.1.
 
 ## AIS boundary
 
@@ -21,4 +23,4 @@ The deployed gateway answers HTTP 200 with `provider_key_required`, empty observ
 
 The tests cover this demonstration's workflows. They are not an independent penetration test, enterprise security certification, maritime navigation approval or guarantee of Google Play acceptance.
 
-Version 1.0.1 (3) advances metadata after Play Console reported version codes 1 and 2 already used. Its app workflows are unchanged; the new bundle is being rebuilt and checked before upload.
+Version 1.0.1 (3) advances metadata after Play Console reported version codes 1 and 2 already used. The signed bundle is uploaded and saved in a Google Play production draft. Final publisher declarations and review submission remain pending.

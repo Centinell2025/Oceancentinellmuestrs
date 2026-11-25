@@ -2,6 +2,10 @@
 
 **Android enterprise demonstration · Version 1.0.1 (3)**
 
+Guía en español: [LEEME.md](LEEME.md).
+
+![OceanCentinell Business maritime demonstration](play-store/media/feature.png)
+
 Beacon of the Eagle LLC. A free sample for companies evaluating maritime operating workflows. B2B services, integrations, licensing and support are agreed separately.
 
 ## What works
@@ -23,6 +27,8 @@ cd android
 ```
 
 The Actions workflow builds Android outputs, runs lint, and tests the installed application on an emulator. Read the latest workflow result before treating the emulator check as passed. Signing credentials are kept outside this repository.
+
+Version 1.0.1 (3) is uploaded and saved as a Google Play production draft. Final publisher declarations remain pending; this is not a claim of Google approval or public store availability. See the [release manifest](releases/1.0.1/manifest.json) and [store progress](docs/GOOGLE_PLAY.md).
 
 | Component | Location |
 | --- | --- |

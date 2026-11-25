@@ -4,6 +4,7 @@
 
 - Advances the Android version code because Google Play already reserves codes 1 and 2.
 - Includes the verified phone viewport fix and the same tested demonstration workflows.
+- Signed Android bundle accepted by Google Play and saved in the production draft; final publisher declarations are pending.
 
 ## 1.0.0 — preparation
 
