@@ -1,0 +1,10 @@
+import {test} from 'node:test';
+import assert from 'node:assert/strict';
+import {normalizePosition,visiblePositions} from '../backend/ais-core.mjs';
+const now=Date.parse('2026-11-25T02:00:00Z');
+const message={MessageType:'PositionReport',MetaData:{MMSI:123456789,ShipName:'DEMO TEST'},Message:{PositionReport:{Latitude:30,Longitude:-81,Sog:12.5,Cog:95,Valid:true}}};
+test('AIS normalization keeps source and receipt time distinct',()=>{const p=normalizePosition(message,now);assert.equal(p.mmsi,'123456789');assert.equal(p.providerTimestamp,null);assert.equal(p.receivedAt,'2026-11-25T02:00:00.000Z');assert.equal(p.speedKnots,12.5)});
+test('AIS rejects unavailable coordinates, invalid identifiers and reports outside scope',()=>{for(const alter of [m=>m.Message.PositionReport.Latitude=91,m=>m.Message.PositionReport.Longitude=181,m=>m.MetaData.MMSI=0,m=>m.Message.PositionReport.Valid=false,m=>m.MessageType='StaticDataReport',m=>m.Message.PositionReport.Latitude=0]){const m=structuredClone(message);alter(m);assert.equal(normalizePosition(m,now),null)}});
+test('AIS age is displayed and old observations expire',()=>{const p=normalizePosition(message,now),r=new Map([[p.mmsi,p]]);assert.equal(visiblePositions(r,now+181000)[0].stale,true);assert.equal(visiblePositions(r,now+181000)[0].ageSeconds,181);assert.equal(visiblePositions(r,now+1801000).length,0)});
+test('unavailable speed and course do not become credible zero measurements',()=>{const m=structuredClone(message);m.Message.PositionReport.Sog=102.3;m.Message.PositionReport.Cog=360;const p=normalizePosition(m,now);assert.equal(p.speedKnots,null);assert.equal(p.courseDegrees,null)});
+test('provider reports outside the timestamp window are discarded',()=>{for(const at of ['2026-11-25T01:00:00Z','2026-11-25T03:00:00Z']){const m=structuredClone(message);m.MetaData.time_utc=at;assert.equal(normalizePosition(m,now),null)}});

@@ -114,6 +114,26 @@ public final class MainActivity extends Activity {
         }
         @JavascriptInterface public void hashFile() { runOnUiThread(() -> choose(HASH, "*/*")); }
         @JavascriptInterface public void importBackup() { runOnUiThread(() -> choose(IMPORT, "*/*")); }
+        @JavascriptInterface public void fetchAIS() {
+            worker.execute(() -> {
+                javax.net.ssl.HttpsURLConnection connection = null;
+                try {
+                    connection = (javax.net.ssl.HttpsURLConnection) new java.net.URL("https://oceancentinell-ais-gateway-production.up.railway.app/positions").openConnection();
+                    connection.setConnectTimeout(10000); connection.setReadTimeout(10000);
+                    connection.setInstanceFollowRedirects(false);
+                    if (connection.getResponseCode() != 200) throw new java.io.IOException();
+                    try (InputStream input = connection.getInputStream(); ByteArrayOutputStream bytes = new ByteArrayOutputStream()) {
+                        byte[] buffer = new byte[8192]; int n;
+                        while ((n = input.read(buffer)) != -1) {
+                            if (bytes.size() + n > LIMIT) throw new java.io.IOException();
+                            bytes.write(buffer, 0, n);
+                        }
+                        result("ais", new JSONObject(bytes.toString(StandardCharsets.UTF_8.name())));
+                    }
+                } catch (Exception error) { result("aisError", new JSONObject()); }
+                finally { if (connection != null) connection.disconnect(); }
+            });
+        }
         @JavascriptInterface public void exportText(String filename, String type, String content) {
             if (content.length() > LIMIT) { failure("Export exceeds the 2 MB limit."); return; }
             runOnUiThread(() -> {

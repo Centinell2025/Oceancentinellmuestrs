@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en"><head>
     <meta charset="UTF-8">
-    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; connect-src 'none'; object-src 'none'; base-uri 'none'; form-action 'none'">
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; connect-src 'self' https://oceancentinell-ais-gateway-production.up.railway.app; object-src 'none'; base-uri 'none'; form-action 'none'">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="OceanCentinell Enterprise 1.0.0 - Infrastructure and Maritime Operations Platform by Beacon of the Eagle LLC">
     <meta name="keywords" content="Maritime Security, Satcom, AIS, VTS, SOLAS, ISM, ISPS, IMO 2030, ISO 27001, Compliance, AI Assistant">
@@ -3326,7 +3326,7 @@
                 <div class="login-subtitle">Enterprise 1.0.0 | Beacon of the Eagle LLC</div>
             </div>
 
-            <p class="demo-intro">Free company demonstration. Fictional records only. No live telemetry or company sign-in is connected.</p><button class="login-button" id="enterDemo" type="button">Enter demonstration</button>
+            <p class="demo-intro">Free company demonstration. Fictional records only. Optional regional AIS uses a server gateway. Company sign-in is not enabled.</p><button class="login-button" id="enterDemo" type="button">Enter demonstration</button>
 
             <div class="login-footer">
                 <p id="loginFooterText">This entrance is a demonstration launcher, not an authentication gate.</p>
@@ -3383,7 +3383,7 @@
                         <input type="text" class="search-input" id="searchInput" placeholder="Search organization records (Enter)" aria-label="Search organization records">
                     </div>
                 </div>
-                <div class="header-right"><span class="demo">Synthetic data · No live feeds</span><button class="btn" id="brief" type="button">Export executive brief</button></div>
+                <div class="header-right"><span class="demo" id="sourceStatus">Sample records · AIS optional</span><button class="btn" id="brief" type="button">Export executive brief</button></div>
             </div>
 
             <!-- CONTENT -->
@@ -3430,4 +3430,4 @@
     <!-- JAVASCRIPT -->
     <!-- ============================================ -->
 
-<button class="oc-assistant-launch" type="button" id="assistantStatus">Integration status</button><input type="file" id="backupFile" accept=".json,application/json" hidden><dialog id="restoreDialog"><h2>Restore demonstration records?</h2><p id="restoreSummary"></p><p>Your current local records will be replaced. Export them first if you need to retain them.</p><div class="actions"><button id="cancelRestore" type="button">Cancel</button><button id="confirmRestore" type="button">Replace local demonstration records</button></div></dialog><dialog id="editor"><form id="incident-form"><h2>Record a demonstration incident</h2><p>Use synthetic information only.</p><label>Title<input name="title" maxlength="120" required placeholder="Sample equipment inspection"></label><label>Vessel<select name="vessel" id="incident-vessel"></select></label><div class="two"><label>Severity<select name="severity"><option>Low</option><option>Medium</option><option>High</option><option>Critical</option></select></label><label>Owner<input name="owner" maxlength="80" value="Demo operations team" required></label></div><label>Notes<textarea name="notes" maxlength="1500" rows="3"></textarea></label><div class="actions"><button type="button" id="cancel" class="quiet">Cancel</button><button type="submit">Save local record</button></div></form></dialog><div id="toast" role="status" hidden></div><script src="map-data.js" defer></script><script src="features.js" defer></script><script src="app.js" defer></script></body></html>
+<button class="oc-assistant-launch" type="button" id="assistantStatus">Integration status</button><input type="file" id="backupFile" accept=".json,application/json" hidden><dialog id="restoreDialog"><h2>Restore demonstration records?</h2><p id="restoreSummary"></p><p>Your current local records will be replaced. Export them first if you need to retain them.</p><div class="actions"><button id="cancelRestore" type="button">Cancel</button><button id="confirmRestore" type="button">Replace local demonstration records</button></div></dialog><dialog id="editor"><form id="incident-form"><h2>Record a demonstration incident</h2><p>Use synthetic information only.</p><label>Title<input name="title" maxlength="120" required placeholder="Sample equipment inspection"></label><label>Vessel<select name="vessel" id="incident-vessel"></select></label><div class="two"><label>Severity<select name="severity"><option>Low</option><option>Medium</option><option>High</option><option>Critical</option></select></label><label>Owner<input name="owner" maxlength="80" value="Demo operations team" required></label></div><label>Notes<textarea name="notes" maxlength="1500" rows="3"></textarea></label><div class="actions"><button type="button" id="cancel" class="quiet">Cancel</button><button type="submit">Save local record</button></div></form></dialog><div id="toast" role="status" hidden></div><script src="map-data.js" defer></script><script src="ais-client.js" defer></script><script src="features.js" defer></script><script src="app.js" defer></script></body></html>

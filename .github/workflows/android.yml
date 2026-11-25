@@ -16,7 +16,7 @@ jobs:
         with:
           node-version: '22'
       - name: Check demonstration data validation
-        run: node --test tests/demo.test.cjs
+        run: node --test tests/*.cjs tests/*.mjs
       - uses: actions/setup-java@v4
         with:
           distribution: temurin
