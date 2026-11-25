@@ -1,0 +1,13 @@
+{
+  "name": "oceancentinell-business-demo",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Android enterprise demonstration by Beacon of the Eagle LLC",
+  "scripts": {
+    "test": "node --test tests/*.cjs tests/*.mjs",
+    "verify:assets": "node scripts/check-assets.mjs",
+    "sync:android": "node scripts/sync-android.mjs",
+    "build:gateway": "node backend/build.mjs"
+  },
+  "engines": { "node": ">=22" }
+}

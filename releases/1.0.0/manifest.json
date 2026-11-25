@@ -1,0 +1,13 @@
+{
+  "app": "OceanCentinell Business",
+  "version": "1.0.0",
+  "versionCode": 1,
+  "package": "com.beaconoftheeagle.oceancentinellbusiness",
+  "minSdk": 26,
+  "targetSdk": 36,
+  "aabSha256": "0f0a67560be8a3068ec7efd1253e37f007f101ae48b6234a29f8737966d2781c",
+  "sourceCommit": "ca0c15b415ebbd98c17c0c532356475fe21f086f",
+  "testedWorkflow": "https://github.com/Centinell2025/Oceancentinellmuestrs/actions/runs/45532429137",
+  "status": "signed preparation build; Google Play submission pending final declarations",
+  "aisStatus": "gateway deployed; provider key not configured"
+}

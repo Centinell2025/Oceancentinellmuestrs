@@ -1,14 +1,22 @@
-# Validation record
+# Final validation record
 
 Version: 1.0.0 (1). Package: com.beaconoftheeagle.oceancentinellbusiness.
 
-- Eleven Node tests pass: local schema validation, duplicate records, invalid dates, spreadsheet formula escaping, map geography, AIS normalization, invalid coordinates, missing values, stale observations and expiration.
+## Passed
+
+- Eleven Node tests cover local schema validation, duplicate records, invalid dates, spreadsheet formula escaping, map geography, AIS normalization, invalid coordinates, missing values, stale observations and expiration.
 - Android release AAB and debug APK compile against API 36; Android lint passes.
-- Signed release bundle contents have been compared byte-for-byte with the reviewed HTML, CSS, JavaScript and image assets.
-- Browser checks pass: fleet filtering, incident creation, maintenance changes updating priorities, pilot draft and checklist persistence, CSV and JSON downloads, validated backup preview and restoration, map selection and gateway response.
-- The regional gateway responds HTTP 200 with `provider_key_required`, an empty position list and disconnected status. This verifies connectivity and honest missing-configuration behavior; it does not verify a live AIS subscription.
-- Installed Android emulator smoke test PASSED on API 35: the packaged app loaded, fleet filtering worked, the reference map rendered, the native AIS gateway responded and maintenance changes persisted locally. Workflow run: https://github.com/Centinell2025/Oceancentinellmuestrs/actions/runs/45531588674. Real app screens were captured in the same run.
+- The installed Android app passed on an API 35 emulator: entry, vessel filtering, reference map, native AIS gateway response and local maintenance persistence.
+- Phone layout was corrected after reviewing real emulator captures. The final test also checks that the content and map occupy the visible viewport.
+- Browser checks passed for incident creation, pilot draft/checklist persistence, maintenance priorities, CSV/JSON downloads and validated backup restoration.
+- The signed release bundle's packaged HTML, CSS, JavaScript and image assets match the reviewed source byte-for-byte.
 
-Never describe live vessel tracking as verified until a provider key is configured and actual provider messages have been received and checked.
+Final installed-app run: https://github.com/Centinell2025/Oceancentinellmuestrs/actions/runs/45532429137
 
-A visual review of the initial emulator captures found the inherited mobile sidebar occupying the viewport. The phone layout has been corrected and viewport visibility assertions have been added; the final capture run must pass before submission.
+The store media use actual Android welcome, vessel-register and fleet-map captures from that run.
+
+## AIS boundary
+
+The deployed gateway answers HTTP 200 with `provider_key_required`, empty observations and disconnected status. This proves app-to-gateway connectivity and missing-configuration behavior. It does not prove a live AIS subscription. The publisher still needs to activate its provider account/key. Never label fictional sample vessels as live tracking.
+
+The tests cover this demonstration's workflows. They are not an independent penetration test, enterprise security certification, maritime navigation approval or guarantee of Google Play acceptance.
