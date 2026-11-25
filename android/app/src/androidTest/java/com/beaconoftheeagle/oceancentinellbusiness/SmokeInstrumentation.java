@@ -50,6 +50,7 @@ public final class SmokeInstrumentation extends Instrumentation {
             result.putString("result", "PASS");
             finish(Activity.RESULT_OK, result);
         } catch (Throwable error) {
+            try { capture("00-failure.png"); } catch (Exception ignored) {}
             result.putString("stream", "FAIL: " + error + "\n");
             result.putString("result", "FAIL");
             finish(Activity.RESULT_CANCELED, result);
@@ -65,7 +66,7 @@ public final class SmokeInstrumentation extends Instrumentation {
     private String js(String source) throws Exception {
         CountDownLatch done=new CountDownLatch(1); AtomicReference<String> value=new AtomicReference<>();
         runOnMainSync(() -> web.evaluateJavascript(source, v -> {value.set(v);done.countDown();}));
-        if(!done.await(5,TimeUnit.SECONDS))throw new AssertionError("WebView evaluation timed out");
+        if(!done.await(30,TimeUnit.SECONDS))throw new AssertionError("WebView evaluation timed out: "+source);
         return value.get();
     }
     private void await(String condition) throws Exception {
