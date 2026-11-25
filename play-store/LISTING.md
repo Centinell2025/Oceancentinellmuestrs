@@ -1,6 +1,6 @@
 # OceanCentinell Business
 
-Publisher: Beacon of the Eagle LLC. Free B2B demonstration; enterprise contracts are separate. Category: Business. Default language: en-US. Intended audience: adults. No ads or in-app checkout. Package: com.beaconoftheeagle.oceancentinellbusiness. Version: 1.0.0 (1).
+Publisher: Beacon of the Eagle LLC. Free B2B demonstration; enterprise contracts are separate. Category: Business. Default language: en-US. Intended audience: adults. No ads or in-app checkout. Package: com.beaconoftheeagle.oceancentinellbusiness. Version: 1.0.1 (3).
 
 Short description: Explore maritime fleet, incident and maintenance workflows for your business.
 

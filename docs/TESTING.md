@@ -20,3 +20,5 @@ The store media use actual Android welcome, vessel-register and fleet-map captur
 The deployed gateway answers HTTP 200 with `provider_key_required`, empty observations and disconnected status. This proves app-to-gateway connectivity and missing-configuration behavior. It does not prove a live AIS subscription. The publisher still needs to activate its provider account/key. Never label fictional sample vessels as live tracking.
 
 The tests cover this demonstration's workflows. They are not an independent penetration test, enterprise security certification, maritime navigation approval or guarantee of Google Play acceptance.
+
+Version 1.0.1 (3) advances metadata after Play Console reported version codes 1 and 2 already used. Its app workflows are unchanged; the new bundle is being rebuilt and checked before upload.

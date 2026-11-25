@@ -1,6 +1,6 @@
 # OceanCentinell Business
 
-**Android enterprise demonstration · Version 1.0.0 (1)**
+**Android enterprise demonstration · Version 1.0.1 (3)**
 
 Beacon of the Eagle LLC. A free sample for companies evaluating maritime operating workflows. B2B services, integrations, licensing and support are agreed separately.
 

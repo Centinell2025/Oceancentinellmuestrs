@@ -1,5 +1,10 @@
 # Changelog
 
+## 1.0.1 (3) — Google Play preparation
+
+- Advances the Android version code because Google Play already reserves codes 1 and 2.
+- Includes the verified phone viewport fix and the same tested demonstration workflows.
+
 ## 1.0.0 — preparation
 
 - Original Enterprise blue HTML adapted as a separate free business demonstration.

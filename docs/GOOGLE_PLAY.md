@@ -2,7 +2,7 @@
 
 - App: OceanCentinell Business
 - Package: com.beaconoftheeagle.oceancentinellbusiness
-- Version: 1.0.0 (1)
+- Version: 1.0.1 (3)
 - Publisher: Beacon of the Eagle LLC
 - Price: free company demonstration; B2B contracts separate
 - Audience: adults evaluating business workflows
