@@ -114,6 +114,12 @@ public final class MainActivity extends Activity {
         }
         @JavascriptInterface public void hashFile() { runOnUiThread(() -> choose(HASH, "*/*")); }
         @JavascriptInterface public void importBackup() { runOnUiThread(() -> choose(IMPORT, "*/*")); }
+        @JavascriptInterface public void openPrivacy() {
+            runOnUiThread(() -> {
+                try { startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("https://oceancentinell-ais-gateway-production.up.railway.app/privacy"))); }
+                catch (android.content.ActivityNotFoundException error) { failure("No browser is available. Contact centinellsuite@gmail.com for the privacy policy."); }
+            });
+        }
         @JavascriptInterface public void fetchAIS() {
             worker.execute(() -> {
                 javax.net.ssl.HttpsURLConnection connection = null;
