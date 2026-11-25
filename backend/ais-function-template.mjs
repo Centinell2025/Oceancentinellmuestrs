@@ -1,6 +1,7 @@
 import WebSocket from 'ws@8.23.0';
 // AIS_CORE is inserted by the build script. Only this generated file is deployed.
 /* AIS_CORE */
+const privacyDocument=/* PRIVACY_DOCUMENT */;
 const box=DEFAULT_BOX,records=new Map(),rates=new Map();
 let ws=null,connected=false,lastMessageAt=null,lastClient=0,retry=null,attempt=0,errorCode=null;
 const key=Bun.env.AISSTREAM_API_KEY;
@@ -16,7 +17,7 @@ function connect(){
   function idleCheck(){if(ws!==socket)return;if(!active())socket.close();else setTimeout(idleCheck,60000)}setTimeout(idleCheck,125000);
 }
 function json(data,status=200){return Response.json(data,{status,headers:{'Cache-Control':'no-store','X-Content-Type-Options':'nosniff'}})}
-const server=Bun.serve({port:Number(Bun.env.PORT||3000),fetch(req){const url=new URL(req.url),origin=req.headers.get('Origin');const respond=(data,status=200)=>{const r=json(data,status);if(['https://oceancentinell-b2b-demo.centinellsuite.chatgpt.site','http://127.0.0.1:4173'].includes(origin)){r.headers.set('Access-Control-Allow-Origin',origin);r.headers.set('Vary','Origin')}return r};if(req.method!=='GET')return respond({error:'method_not_allowed'},405);if(url.pathname==='/health')return respond({service:'OceanCentinell AIS gateway',configured:!!key,provider:'AISStream'});
+const server=Bun.serve({port:Number(Bun.env.PORT||3000),fetch(req){const url=new URL(req.url),origin=req.headers.get('Origin');const respond=(data,status=200)=>{const r=json(data,status);if(['https://oceancentinell-b2b-demo.centinellsuite.chatgpt.site','http://127.0.0.1:4173'].includes(origin)){r.headers.set('Access-Control-Allow-Origin',origin);r.headers.set('Vary','Origin')}return r};if(url.pathname==='/privacy'&&req.method==='GET')return new Response(privacyDocument,{headers:{'Content-Type':'text/html; charset=utf-8','Cache-Control':'public, max-age=300','X-Content-Type-Options':'nosniff','Content-Security-Policy':"default-src 'none'; style-src 'unsafe-inline'; base-uri 'none'; form-action 'none'"}});if(req.method!=='GET')return respond({error:'method_not_allowed'},405);if(url.pathname==='/health')return respond({service:'OceanCentinell AIS gateway',configured:!!key,provider:'AISStream'});
   if(url.pathname!=='/positions')return respond({error:'not_found'},404);
   const ip=server.requestIP(req)?.address||'unknown',now=Date.now(),minute=Math.floor(now/60000);let rate=rates.get(ip);if(!rate||rate.minute!==minute){rate={minute,count:0};rates.set(ip,rate)}if(++rate.count>30)return respond({error:'rate_limited'},429);if(rates.size>10000){for(const [i,v]of rates)if(v.minute!==minute)rates.delete(i);while(rates.size>10000)rates.delete(rates.keys().next().value)}
   lastClient=now;connect();

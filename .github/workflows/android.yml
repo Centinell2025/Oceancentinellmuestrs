@@ -28,12 +28,49 @@ jobs:
           gradle-version: '8.13'
       - name: Lint and build Android
         working-directory: android
-        run: gradle --no-daemon lintDebug assembleDebug bundleRelease
+        run: gradle --no-daemon lintDebug assembleDebug assembleDebugAndroidTest bundleRelease
       - uses: actions/upload-artifact@v4
         with:
           name: OceanCentinell-Business-1.0.0-android
           path: |
             android/app/build/outputs/apk/debug/app-debug.apk
+            android/app/build/outputs/apk/androidTest/debug/app-debug-androidTest.apk
             android/app/build/outputs/bundle/release/app-release.aab
             android/app/build/reports/lint-results-debug.html
           retention-days: 14
+
+  android-smoke:
+    needs: build
+    runs-on: ubuntu-24.04
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/download-artifact@v4
+        with:
+          name: OceanCentinell-Business-1.0.0-android
+          path: artifacts
+      - name: Enable emulator KVM
+        run: |
+          echo 'KERNEL=="kvm", GROUP="kvm", MODE="0666", OPTIONS+="static_node=kvm"' | sudo tee /etc/udev/rules.d/99-kvm4all.rules
+          sudo udevadm control --reload-rules
+          sudo udevadm trigger --name-match=kvm
+      - uses: reactivecircus/android-emulator-runner@v2
+        with:
+          api-level: 35
+          target: google_apis
+          arch: x86_64
+          profile: pixel_4
+          emulator-options: -no-window -gpu swiftshader_indirect -no-snapshot -noaudio -no-boot-anim -camera-back none -skin 1080x1920
+          script: |
+            adb install artifacts/apk/debug/app-debug.apk
+            adb install artifacts/apk/androidTest/debug/app-debug-androidTest.apk
+            adb shell am instrument -w com.beaconoftheeagle.oceancentinellbusiness.test/com.beaconoftheeagle.oceancentinellbusiness.SmokeInstrumentation | tee android-smoke.txt
+            grep -q 'result=PASS' android-smoke.txt
+            adb pull /sdcard/Android/data/com.beaconoftheeagle.oceancentinellbusiness.test/files/screenshots android-screenshots
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: OceanCentinell-Android-tested-screens
+          path: |
+            android-screenshots/
+            android-smoke.txt
